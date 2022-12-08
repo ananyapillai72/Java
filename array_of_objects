@@ -1,0 +1,87 @@
+import java.util.*;
+
+class emp
+{
+    String name;
+    int salary;
+    int date;
+
+    emp(String name, int salary, int date)
+    {
+        this.name = name;
+        this.salary = salary;
+        this.date = date;
+    }
+}
+
+class hello
+{
+    public static void main(String[] args) 
+    {
+        int j=0,k;
+        int i=1;
+        String ename;
+        int sal;
+        int dob;
+
+        Scanner sc = new Scanner(System.in);
+
+        emp e[] = new emp[20];
+        while(j != 1)
+        {
+            System.out.println("What do you want to do? \n 1) Insert a record \n 2) display record \n 3) Delete a record \n 4) Exit");
+            k=sc.nextInt();
+            if(k==1)
+            {
+                
+                ename = sc.next();
+                sal= sc.nextInt();
+                dob=sc.nextInt();
+
+                e[i]= new emp(ename, sal, dob);
+                i++;
+            }
+            if(k==2)
+            {
+                int m;
+                for( m=1; m<i; m++)
+                {
+                    try
+                    {
+                        System.out.println("The name of the employee is " + e[m].name + " and the salary is " + e[m].salary + "and the dob is "+ e[m].date );
+                    }
+                    catch(Exception er)
+                    {
+                        System.out.println("The exception is "+ er);
+                    }  
+                }
+            }
+            if (k==3)
+            {
+                String del;
+                System.out.println("enter the name you want to delete");
+                del= sc.next();
+                for(int m=1; m<i; m++)
+                {
+                    if(e[m].name.equals(del))
+                    {
+                        for(int p=m; p<i-1; p++)
+                        {
+                            e[p] = e[p+1]; 
+                        }
+                        i--;   
+                    }
+                }
+            }
+            if (k==4)
+            {
+                j=1;
+            }
+            else
+            {
+                System.out.println("Enter valid input");
+
+            }
+        }
+    }
+}
