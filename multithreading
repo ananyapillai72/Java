@@ -1,0 +1,54 @@
+import java.util.*;
+
+class printer implements Runnable
+{
+    static int counter =1;
+    int remainder;
+    static Object lock= new Object();
+
+    printer (int remainder)
+    {
+        this.remainder = remainder;
+    }
+
+    public void printer()
+    {
+        System.out.println(Thread.currentThread().getName() + " " + counter ++);
+    }
+
+    public void run()
+    {
+        for(int i=1; i<=10; i++)
+        {
+            synchronized(lock)
+            {
+                while(counter % 2 != remainder)
+                try
+                {
+                    lock.wait();
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                printer();
+                lock.notifyAll();
+            }
+        }
+    }
+}
+
+public class hello
+{
+    public static void main(String[] args) {
+        printer evenobj = new printer(0);
+        printer oddobj = new printer (1);
+
+        Thread even = new Thread(evenobj, "Even Thread");
+        Thread odd = new Thread (oddobj, "Odd Thread");
+
+        even.start();
+        odd.start();
+    }
+
+}
