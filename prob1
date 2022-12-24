@@ -1,0 +1,41 @@
+#Write a program which accepts marks of a student (between 0 to 100) and checks wheatther it is within the range or not. If it is within the range then it checks 
+whether it is within the range or not. If it is within the range then it displays "marks entered successfully", if not then it throws the exception of user defined class 
+"MarksOutOfRangeException". The class should contain appropriate toString method to describe object the class with the out of range marks entered by the user. 
+
+import java.util.Scanner;
+
+class timeException extends Exception
+{
+    public String toString()
+    {
+        return "MarksOutOfRangeException";
+    }
+}
+
+public class hello {
+    public static void main(String[] args) {
+        int a;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter marks");
+        a=sc.nextInt();
+
+        timeException te = new timeException();
+
+        try
+        {
+            if(a<0 || a>100)
+            {
+                throw te;
+            }
+            else
+            {
+                System.out.println("marks entered successfully");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.toString());
+        }
+    }
+    
+}
