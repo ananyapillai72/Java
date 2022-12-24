@@ -1,0 +1,59 @@
+public class MultithreadedProgram {
+  // Declare the character and integer arrays
+  private static char[] charArray = {'a', 'b', 'c', 'd'};
+  private static int[] intArray = {1, 2, 3, 4};
+
+  // Declare the two threads
+  private static Thread threadA;
+  private static Thread threadB;
+
+  // Declare a flag to keep track of which thread should run next
+  private static boolean flag = true;
+
+  public static void main(String[] args) {
+    // Create the two threads
+    threadA = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        for (char c : charArray) {
+          // Wait until it's thread A's turn to run
+          while (!flag) {
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+
+          // Print the character and set the flag to false to allow thread B to run
+          System.out.println(c);
+          flag = false;
+        }
+      }
+    });
+
+    threadB = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        for (int i : intArray) {
+          // Wait until it's thread B's turn to run
+          while (flag) {
+            try {
+              Thread.sleep(100);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+          }
+
+          // Print the integer and set the flag to true to allow thread A to run
+          System.out.println(i);
+          flag = true;
+        }
+      }
+    });
+
+    // Start the threads
+    threadA.start();
+    threadB.start();
+  }
+}
