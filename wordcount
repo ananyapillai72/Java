@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class WordCount {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.print("Enter a string: ");
+    String input = scanner.nextLine();
+
+    int wordCount = 0;
+    int capitalCount = 0;
+    int smallCount = 0;
+
+    // Split the string into an array of words
+    String[] words = input.split("\\s+");
+
+    // Count the number of words
+    wordCount = words.length;
+
+    // Iterate over each character in the string
+    for (int i = 0; i < input.length(); i++) {
+      char c = input.charAt(i);
+
+      // Check if the character is a capital letter
+      if (Character.isUpperCase(c)) {
+        capitalCount++;
+      }
+
+      // Check if the character is a small letter
+      if (Character.isLowerCase(c)) {
+        smallCount++;
+      }
+    }
+
+    System.out.println("Number of words: " + wordCount);
+    System.out.println("Number of capital letters: " + capitalCount);
+    System.out.println("Number of small letters: " + smallCount);
+  }
+}
