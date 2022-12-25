@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class PermutationCombination {
+  public static void main(String[] args) {
+    String str = "abc";
+
+    // Generate all permutations
+    List<String> permutations = generatePermutations(str);
+    System.out.println("Permutations: " + permutations);
+
+    // Generate all combinations
+    List<String> combinations = generateCombinations(str);
+    System.out.println("Combinations: " + combinations);
+  }
+
+  // Generates all permutations of a given string
+  public static List<String> generatePermutations(String str) {
+    List<String> permutations = new ArrayList<>();
+    generatePermutationsHelper("", str, permutations);
+    return permutations;
+  }
+
+  // Recursive helper function for generating permutations
+  private static void generatePermutationsHelper(String prefix, String str, List<String> permutations) {
+    int n = str.length();
+    if (n == 0) {
+      permutations.add(prefix);
+    } else {
+      for (int i = 0; i < n; i++) {
+        generatePermutationsHelper(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, n), permutations);
+      }
+    }
+  }
+
+  // Generates all combinations of a given string
+  public static List<String> generateCombinations(String str) {
+    List<String> combinations = new ArrayList<>();
+    for (int i = 0; i < str.length(); i++) {
+      for (int j = i + 1; j <= str.length(); j++) {
+        combinations.add(str.substring(i, j));
+      }
+    }
+    return combinations;
+  }
+}
